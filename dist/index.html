@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Home Zealand</title>
+
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./assets/css/tailwind.min.css">
+    <link rel="stylesheet" href="./assets/css/homezealand.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
+
+    <!-- Map Box -->
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+
+    <!-- JQuery -->
+    <script src="./assets/js/jQuery.min.js"></script>
+    <!-- Date Picker Plugin -->
+    <script src="./assets/js/litepicker.min.js"></script>
+    <!-- Type Ahead (JQuery Plugin) -->
+    <script src="./assets/js/typeahead.js" defer></script>
+    <!-- Application code -->
+    <script src="./assets/js/app.js" defer></script>
+
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+
+    <noscript>
+      <div class="block fixed top-0 w-full inset-x-0 z-30 bg-transparent p-2">
+        <div class="bg-red-300 error-border p-4 relative">
+          <h2 class="text-xl font-medium font-ubuntu text-red-800">Your JavaScript Is Disabled!</h2>
+          <p class="text-black">This site requires JavaScript to run, <a href="https://enable-javascript.com/" target="_blank"> learn how to enable it at <span class="text-red-900 font-bold">https://enable-javascript.com/</span></a></p>
+        </div>
+      </div>
+    </noscript>
+
+    <div id="error" class="block hidden fixed top-0 w-full inset-x-0 z-30 bg-transparent p-2">
+      <div class="bg-red-300 border-red-500 border-4 p-4 relative">
+        <button id="error-close" class="text-4xl leading-none m-0 text-red-800 absolute top-0 right-0 w-8 text-center">&times;</button>
+        <h2 class="text-xl font-medium font-ubuntu text-red-800">Errors have occurred!</h2>
+        <div id="errors">
+        </div>
+        <p class="italic text-red-700 mt-4">Perhaps try refreshing the page?</p>
+      </div>
+    </div>
+
+
+
+    <header class="relative border-8 border-white md:overflow-hidden">
+      <div class="z-0 absolute inset-0  bg-cover bg-no-repeat bg-center" style="filter: blur(2px);background-image: linear-gradient(#00000088, #00000088), url('./assets/img/auckland_city_new_zealand_2.jpeg')"></div>
+      <div class="relative w-full md:w-3/4 lg:w-4/5 mx-auto pt-32 pb-48">
+        <!-- Title -->
+        <h1 class="text-5xl md:text-6xl text-white font-ubuntu text-center md:text-left"><span class="text-green-200">Home</span> Zealand</h1>
+        <!-- Header description -->
+        <p class="w-2/5 text-white hidden md:block">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+        <!-- Filter row -->
+        <div id="datepicker" class="absolute py-2 bottom-0 w-full -mb-32 md:mb-12 px-4 md:px-0">
+          <input  class="absolute opacity-0 cursor-pointer">
+          <div class="md:flex">
+            <div class="mt-4 md:mt-0 bg-white w-full md:w-1/3 cursor-pointer datepicker-trigger px-4 pt-4 pb-2 md:border-r border-gray-700  shadow-xl">
+              <span class="text-lg text-gray-700 font-ubuntu font-bold">Check In</span>
+              <span class="block w-full" id="checkin">Select Date</span>
+            </div>
+            <div class="mt-4 md:mt-0 bg-white w-full md:w-1/3 cursor-pointer datepicker-trigger px-4 pt-4 pb-2 md:border-r border-gray-700  shadow-xl">
+              <span class="text-lg text-gray-700 font-ubuntu font-bold">Check Out</span>
+              <span class="block w-full" id="checkout">Select Date</span>
+            </div>
+            <div class="mt-4 md:mt-0 bg-white w-full md:w-1/3 px-4 py-2  shadow-xl">
+              <span class="text-lg text-gray-700 font-ubuntu font-bold">No. Of Guests</span>
+              <input type="range" id="guests" list="tickmarks" min="1" max="6" step="1" value="1" class="block w-full h-2 my-2 bg-gray-700 outline-none opacity-75">
+              <ul class="flex justify-between px-1">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+              </ul>
+
+              <datalist id="tickmarks">
+                <option value="1" label="1"></option>
+                <option value="2" label="2"></option>
+                <option value="3" label="3"></option>
+                <option value="4" label="4"></option>
+                <option value="5" label="5"></option>
+                <option value="6" label="6"></option>
+              </datalist>
+            </div>
+        </div>
+      </div>
+      </div>
+    </header>
+
+    <!-- Map section -->
+    <section id="map-select" class="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 md:px-0 mt-48 md:mt-16">
+      <div class=""></div>
+        <!-- Search Bar -->
+        <label for="map-search-input">Where would you like to stay?</label>
+        <div class="mb-6 shadow-2xl relative" id="map-search">
+          <input id="map-search-input" oninput="$('.map-overlay').remove()" type="text" class="absolute inset-0 bg-white w-full block py-4 px-4 w-5/6 border" autocomplete="on" placeholder="Christchurch">
+        </div>
+        <div class="relative shadow-2xl">
+        <!-- Title Box -->
+        <div class="bg-white p-4 text-black absolute top-0 left-0 z-10 font-ubuntu text-xl flex items-center">
+          <h2>PICK A LOCATION</h2>
+          <img src="./assets/img/icons/location.svg" alt="locations icon" aria-hidden="true" class="w-6 ml-2">
+        </div>
+        <!-- Map (Generated by JS) -->
+        <div class="w-full h-64 relative z-0" id="map" ></div>
+        <div class="absolute inset-0 text-center pt-24 map-overlay" style="background-color:rgba(0,0,0,0.8)">
+          <p class="text-white text-2xl">Click an orange dot on the map to select location</p>
+          <button class="text-black bg-white px-4 py-2 font-bold mt-4 rounded" onclick="$(this).parent().remove()">Got it</button>
+        </div>
+      </div>
+      </div>
+    </section>
+
+
+    <section class="relative w-full md:w-3/4 lg:w-4/5 mx-auto mt-16 px-4 md:px-0" id="selection">
+      <h2 class="uppercase text-xl mb-4">Accommodation Options <span id="listing_count" style="display:none" class="text-gray-500 mr-6"></span></h2>
+
+      <!-- Please make your selection text -->
+      <p id="pleaseSelect" class="text-4xl font-thin text-gray-700">Please Select Your Check in, Check out, Number of guests and desired location</p>
+      
+      <!-- Failed to find selection text -->
+      <p id="failedToFindSelection" class="hidden text-4xl font-thin text-gray-700">Failed to find an option that fit your selection</p>
+      
+      <div id="listings" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- All listings go here -->
+      </div>
+    </section>
+
+    <footer class="mt-64 bg-gray-200 p-8 text-right">
+      <a href="https://michaelprice.co.nz" target="_blank">Made by Michael Price</a>
+    </footer>
+
+
+    <!-- Listing Popup -->
+    <div class="fixed inset-0 z-30 px-6 md:px-12 pt-32 overflow-y-auto pb-64 hidden"  id="listing_popup" style="background-color:rgba(0,0,0,0.8)">
+      <div class="bg-white shadow-xl inset-x-0 w-full md:max-w-3xl mx-auto relative">
+        
+        <section class="py-6 text-center overflow-hidden">
+        <button onclick="$(this).parent().parent().parent().addClass('hidden');$('body').removeClass('overflow-y-hidden')" class="text-5xl px-6 text-black hover:text-gray-600 absolute top-0 right-0">&times;</button>
+          <h2 class="text-black text-4xl font-ubuntu listing_popup_op_name"></h2>
+
+          <div class="relative listing_popup_image_container mt-4 overflow-hidden h-48" data-open="false">
+            <img class="w-full object-fix object-cover object-center listing_popup_image h-full listing_popup_op_image">
+            <div class="absolute inset-0 cursor-pointer listing_popup_image_hovereffect flex items-center justify-center">
+              <p class="text-white text-xl font-bold listing_popup_image_showfull p-4 rounded" style="background-color:rgba(0,0,0,0.7)">Show Full Image</p>
+            </div>
+          </div>
+          
+        </section>
+
+        <div class="md:flex pb-4">
+          <div class="md:w-1/2 px-6">
+            <h3 class="text-2xl font-ubuntu">Info</h3>
+            
+            
+            <dl class="flex justify-between flex-wrap">
+              <div class="flex items-center mb-3">
+                <dt><img class="w-8" src="assets/img/icons/user.svg" alt="People icon" aria-label="Min/Max People"></dt>
+                <dd class="ml-3 text-xl listing_popup_op_people"></dd>
+              </div>
+              <div class="flex items-center mb-3">
+                <dt><img class="w-8" src="assets/img/icons/nights.svg" alt="Nights icon" aria-label="Min/Max Nights"></dt>
+                <dd class="ml-3 text-xl listing_popup_op_nights"></dd>
+              </div>
+              <div class="flex items-center mb-3">
+                <dt><img class="w-8" src="assets/img/icons/location-gray.svg" alt="Location icon" aria-label="Location"></dt>
+                <dd class="ml-3 text-xl listing_popup_op_location"></dd>
+              </div>
+            </dl>
+
+            <h4 class="text-xl font-ubuntu font-bold">Cost</h4>
+            <p class="text-xl">Cost Per Night: <span class="listing_popup_op_price font-bold"></span></p>
+            <p class="text-xl">No Of Nights: <span class="listing_popup_op_night_selected font-bold"></span></p>
+            <p class="text-xl">Total Cost: <span class="listing_popup_op_price"></span> &times; <span class="listing_popup_op_night_selected"></span> = <output class="listing_popup_op_totalCost font-bold"></output></p>
+
+            
+          </div>
+
+          <div class="md:w-1/2 px-6 mt-6 md:mt-0">
+            <h3 class="text-2xl font-ubuntu">Meal Options</h3>
+            <div class="listing_popup_op_meals"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /Listing Popup -->
+
+  </body>
+</html>

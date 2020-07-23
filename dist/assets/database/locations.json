@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "name": "Auckland",
+    "location": [-36.8484597,174.7633315]
+  },
+  {
+    "id": 1,
+    "name": "Christchurch",
+    "location": [-43.5320544,172.6362254]
+  },
+  {
+    "id": 2,
+    "name": "Wellington",
+    "location": [-41.2864603,174.776236]
+  },
+  {
+    "id": 3,
+    "name": "West Coast",
+    "location": [-42.6919232,171.3399414]
+  },
+  {
+    "id": 4,
+    "name": "Dunedin",
+    "location": [-45.8787605,170.5027976]
+  },
+  {
+    "id": 5,
+    "name": "Queenstown",
+    "location": [-45.0301511,168.6616206]
+  }
+]
